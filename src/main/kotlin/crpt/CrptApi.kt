@@ -43,7 +43,7 @@ class CrptApiImpl(
 
 	override fun createDocument(command: CreateDocumentCommand): CreateDocumentResponse {
 		semaphore.acquire()
-		val request = defaultRequest
+		val request = defaultRequest.copy()
 			.POST(HttpRequest.BodyPublishers.ofString(objectMapper.writeValueAsString(command)))
 			.build()
 		val response = httpClient.send(request, HttpResponse.BodyHandlers.ofString())
